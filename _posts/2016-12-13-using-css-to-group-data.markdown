@@ -16,6 +16,7 @@ The last part was a time-suck but in the end turned out well.
 ## What I Spent Time Trying
 
 I knew I would use the following:
+
 * Rails (this is a feature for an existing project)
 * AJAX to load in the 10 new items at a time
 * Altered pagination to get 10 items at a time (already using the pagination gem so the overhead was already there so I figured I might as well use it again for this)
@@ -25,11 +26,13 @@ And then how to order items and show a month heading when loading 10 results at 
 **Sidebar**
 
 Month 1:
+
 * Item 1
 * Item 2
 * Item 3
 
 Month 2: 
+
 * Item 4
 * Item 5
 * Item 6
@@ -37,6 +40,7 @@ Month 2:
 * Item 8
 
 Month 3:
+
 * Item 9
 * Item 10
 
@@ -113,6 +117,7 @@ And my back-end can easily return ordered results 10 at a time. No grouping or s
 I sometimes spend a lot of time trying to figure out the best way to do something (how can I do it all at once, the most effecient way, etc). Here I realized I need to take a step back and keep it simple.
 
 The basics:
+
 * Keep responsibilities seperate
 * Don't be affraid to get it working and then refactor
 * Let each thing do what it's good at
