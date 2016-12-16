@@ -115,3 +115,12 @@ end
 {% endhighlight %}
 
 I'm doing this because I like the nested declaration of a `module`. I also feel that in these cases I'm not wanting to nest a `class` but group classes under a common area. To me a `module` seems to be appropriate. Maybe I'll change my mind in the future, but at least I've thought it through and am understanding what I'm doing a bit more vs. blindly jumping in.
+
+## References
+
+* http://stackoverflow.com/questions/13261474/ruby-modules-and-classes-same-name-in-structure
+* http://randycoulman.com/blog/2014/12/09/namespaced-classes-in-rails/
+* http://blog.makandra.com/2014/12/organizing-large-rails-projects-with-namespaces/
+* http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/
+* http://stackoverflow.com/questions/6927566/using-instead-of-module-for-ruby-namespacing
+* http://stackoverflow.com/questions/15119724/ruby-lexical-scope-vs-inheritance
