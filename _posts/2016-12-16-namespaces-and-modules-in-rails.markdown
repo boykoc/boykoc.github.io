@@ -118,9 +118,9 @@ I'm doing this because I like the nested declaration of a `module`. I also feel 
 
 ## References
 
-* http://stackoverflow.com/questions/13261474/ruby-modules-and-classes-same-name-in-structure
-* http://randycoulman.com/blog/2014/12/09/namespaced-classes-in-rails/
-* http://blog.makandra.com/2014/12/organizing-large-rails-projects-with-namespaces/
-* http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/
-* http://stackoverflow.com/questions/6927566/using-instead-of-module-for-ruby-namespacing
-* http://stackoverflow.com/questions/15119724/ruby-lexical-scope-vs-inheritance
+* [This answer in a SO question](http://stackoverflow.com/a/13261526/3366016) really helped things click
+* [Namespaced Classes in Rails](http://randycoulman.com/blog/2014/12/09/namespaced-classes-in-rails/) - the comments were helpful too
+* [ORGANIZING LARGE RAILS PROJECTS WITH NAMESPACES](http://blog.makandra.com/2014/12/organizing-large-rails-projects-with-namespaces/) was a great example but it helped enforce my original understanding of namespacing and modules
+* [How DHH Organizes His Rails Controllers](http://jeromedalbert.com/how-dhh-organizes-his-rails-controllers/)
+* [Using “::” instead of “module …” for Ruby namespacing](http://stackoverflow.com/questions/6927566/using-instead-of-module-for-ruby-namespacing)
+* [Ruby - Lexical scope vs Inheritance](http://stackoverflow.com/questions/15119724/ruby-lexical-scope-vs-inheritance)
