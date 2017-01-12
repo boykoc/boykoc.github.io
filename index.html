@@ -3,21 +3,9 @@ layout: default
 ---
 
 <div class="home">
-
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title | escape }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+  <p>Hi, I'm Cody. I'm a developer.</p>
+  <p>I have a great job digitizing a small portion of the Ontario Government.</p>
+  <p>Sometimes I take on side projects (Web Development, Application Development, Graphic Design).</p>
+  <p>I try to implement an agile, user-focused, iterative (AUI? pronounced A-oooo-y ?) approach to my work.</p>
+  <p>Feel free to reach out via email <a href="mailto:{{ site.email }}">{{ site.email }}</a> or on twitter {% include icon-twitter.html username=site.twitter_username %}.</p>
 </div>
