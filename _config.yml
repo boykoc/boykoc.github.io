@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Cody Boyko
-email: codyboyko@yahoo.ca
+email: codywboyko@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Welcome! Glad you found me. I'm still deciding the type of content 
   for this site. In the mean time, feel free to reach out.
