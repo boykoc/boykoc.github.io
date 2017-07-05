@@ -78,9 +78,11 @@ class PostsControllerTest < ActionController::TestCase
     assert_equal Delayed::Job.count, 1
     assert_redirected_to post_path(assigns(:post))
   end
+{% endhighlight %}
 
 Once I tried to make sure the job was **enqueued or performed** with ActiveJob's custom assertions my tests would fail.
 
+{% highlight bash %}
 assert_performed_jobs 1 do 
   patch :update, id: @post, post: { name: 'Changes' }
 end
