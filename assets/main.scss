@@ -37,3 +37,47 @@ $on-laptop:        800px;
 
 // Import partials from the `minima` theme.
 @import "minima";
+
+.simple-grid:after {
+  content: "";
+  display: block;
+  clear: both;
+  margin-bottom: 3em;
+}
+
+.simple-grid {
+  margin-top: 3em;
+}
+
+.simple-grid--col {
+  float: left; margin-bottom: 15px;
+  padding-left: 15px;
+}
+
+.simple-grid--col-4 {
+  width: -webkit-calc(33.3333333333% - (30px / 2));
+  width: calc(33.3333333333% - (30px / 2));
+}
+
+.simple-grid--col-8 {
+  width: -webkit-calc(66.6666666667% - (30px / 2));
+  width: calc(66.6666666667% - (30px / 2));
+}
+
+img.circle {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+@include media-query($on-palm) {
+  .simple-grid--col-4, .simple-grid--col-8 {
+    width: -webkit-calc(100% - (30px / 2));
+    width: calc(100% - (30px / 2));
+  }
+  .center {
+    text-align: center;
+  }
+}
+
