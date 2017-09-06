@@ -1,12 +1,10 @@
 ---
 layout: post
-title:  "That time I wrote query with chained ruby methods weighing in at 41 lines and 2844 chars"
+title:  "That time I wrote a query with chained ruby methods weighing in at 41 lines and 2844 chars"
 date:   2017-09-06 04:01:00 -0400
 categories: ruby rubyonrails
 ---
-## That time I wrote query with chained ruby methods weighing in at 41 lines and 2844 chars
-
-First things first, **I REFACTORED THIS NASTY MESS!** And this is focused on how I got into the mess and how I addressed it.
+First things first, **I REFACTORED THIS NASTY MESS!** And this is focused on how I got into the mess and some of the first things I did to addressed it.
 
 In my opinion Ruby is great and Rails is amazing. They make me a happy programmer and pretty productive. However, they let you get into trouble if you're not careful. Actually, this isn't really the fault of the language at all. It does what I tell it to. This is what happens if you don't slow down and look for ways to keep your code clean. Luckily I've had some time to go back and fix this. I've already started trying to hold myself to a few rules i.e. more classes are better then fewer, keep methods short - when I hit 10 lines really think about how to break it out, and a few others.
 
