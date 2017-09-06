@@ -6,13 +6,17 @@ categories: ruby rubyonrails
 ---
 First things first, **I REFACTORED THIS NASTY MESS!** And this is focused on how I got into the mess and some of the first things I did to addressed it.
 
-In my opinion Ruby is great and Rails is amazing. They make me a happy programmer and pretty productive. However, they let you get into trouble if you're not careful. Actually, this isn't really the fault of the language at all. It does what I tell it to. This is what happens if you don't slow down and look for ways to keep your code clean. Luckily I've had some time to go back and fix this. I've already started trying to hold myself to a few rules i.e. more classes are better then fewer, keep methods short - when I hit 10 lines really think about how to break it out, and a few others.
+In my opinion Ruby is great and Rails is amazing. They make me a happy programmer and pretty productive. But I find keeping some solid rules in mind when coding is always good. I've started trying to hold myself to things like *"more classes are better then fewer"* and *"keep methods short"* - when I hit 10 lines really think about how to break it out.
 
 ## How did I get to writing a huge query like 41 lines?
 
 Well actually it's part of a 61 line `index` action in a controller. Which by the way, uses some `Model` methods to help trim it down (writing that made me laugh at myself because of how huge it still is).
 
-Anyway, this controller and action started much smaller. It was a standard index action that evolved quickly. It started with a standard query to get some data and we launched it. The users asked for some filters, so I quickly added some filtering by getting the params, making sure they exist, and setting a default if they don't and we pushed. The user then asked for the data to be grouped by date then the ability to filter and group some 'one-off categories' which I added with Ruby then used JS on the frontend to show and hide things, and they wanted to fast. So I started making the changes right there in the controller action and ruby let me chain things like crazy, so I did. I love ruby...It's so easy to get stuff done...even if it's dirty.
+Anyway, this controller and action started much smaller. It was a standard `index` action that evolved quickly. It started with a standard query to get some data and we launched it. The users asked for some filters, so I quickly added some filtering by getting the params, making sure they exist, and setting a default if they don't and we pushed (this alone added 5 lines). 
+
+The user then asked for the data to be grouped by date then the ability to filter and group some "one-off categories" which I added with Ruby then used JS on the frontend to show and hide things, and they wanted to fast. 
+
+So I started making the changes right there in the controller action and ruby let me chain things like crazy, so I did. I love ruby...It's so easy to get stuff done...even if it's dirty.
 
 ## What I ended up with
 
@@ -140,7 +144,7 @@ end
 
 At this point I can cleanup my controller a bit, changing it from the above original to:
 
-`assigned = GroupedOutlookMilestones.new(@beginning_of_month, end_of_range, committee_ids).assigned`
+`assigned = GroupedTasks.new(@beginning_of_month, end_of_range, committee_ids).assigned`
 
 **And BAMM!** From 41 lines down to 1. But this so far has just moved the problem. But I can now unit test this one method which is nice. The real fix will be breaking this method down into smaller pieces.
 
@@ -219,4 +223,4 @@ end
 
 ## Keep in mind
 
-We don't write perfect code. I've always struggled with finding "the best way to implement" things to the point that it can paralize me and I get nothing done except try and research the absolute best way. Lately I've been trying to hard to just write an implementation that works, use comments like `# OPTIMIZE: ...` to make notes along the way, once it's working with a passing test, go back and make changes and improvements. But, go back before it gets too big and out of hand.
+We don't write perfect code. I've always struggled with finding "the best way to implement" things to the point that it can paralize me and I get nothing done except trying to research the absolute best way. Lately I've been trying hard to write an implementation that works, use comments like `# OPTIMIZE: ...` to make notes along the way, once it's working with a passing test, go back and make changes and improvements. But, go back before it gets too big and out of hand.
