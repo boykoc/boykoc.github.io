@@ -11,11 +11,7 @@
   {% if page.url %}
     <meta name="twitter:url" content="{{ site.url }}{{ page.url }}">
   {% endif %}
-  {% if page.excerpt %}
-    <meta name="twitter:description" content="content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
-  {% else %}
-    <meta name="twitter:description" content="{{ site.description }}">
-  {% endif %}
+   <meta name="twitter:description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
   {% if page.image %}
     <meta name="twitter:image:src" content="{{ site.url }}/path/to/image/{{ page.image }}">
   {% else %}
