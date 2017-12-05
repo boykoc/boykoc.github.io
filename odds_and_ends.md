@@ -66,3 +66,14 @@ These are a few of the fun personal projects I've worked on. Some of my larger d
   </div>
 </div>
 
+<div class="simple-grid">
+  <div class="simple-grid--col simple-grid--col-4 center">
+    <img alt="myReads React app - screenshot" src="/assets/img/myReads.PNG" class="circle"/>
+  </div>
+  <div class="simple-grid--col simple-grid--col-8">
+    <h2>myReads</h2>
+    <p><a href="https://github.com/boykoc/reactnd-project-myreads-starter">Code</a> &#124; <a href="https://mighty-ocean-39633.herokuapp.com/">Site</a></p>
+    <p><strong>Built &#124; Aug 29, 2017 - Sept 4, 2017</strong></p>
+    <p>Part of the React NanoDegree from Udacity. This is a frontend React app playing with some foundational aspects of React.</p>
+  </div>
+</div>
