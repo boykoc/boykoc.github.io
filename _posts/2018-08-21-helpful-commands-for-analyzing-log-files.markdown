@@ -4,11 +4,9 @@ title:  "Helpful commands for analyzing log files"
 date:   2018-08-21 15:00:00 -0400
 categories: linux logs
 ---
-## Helpful commands for analyzing log files
-
 There's lots of ways to go through log files and dig out what you need. Some or more complex then others and some will get you what you're looking for faster, better or easier. But I've found there are some basic commands that will get you rolling quickly.
 
-### Basic commands
+## Basic commands
 
 This ones kind of obvious but sometimes it's easiest to just open the file with an editor and search for what you're looking for.
 
