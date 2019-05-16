@@ -32,6 +32,8 @@ which is kind of re-assuring to know there is some level of checks in
 place. But, to check the read permissions it tries to get the datastore
 read connection string username.
 
+This is similar to, but not the same as [issue#4153](https://github.com/ckan/ckan/issues/4153)
+
 [L1594](https://github.com/ckan/ckan/blob/b5aeb795e0b1624238df1190e24ec6b1228b67d6/ckanext/datastore/backend/postgres.py#L1594)
 {% highlight python %}
         read_connection_user = sa_url.make_url(self.read_url).username
