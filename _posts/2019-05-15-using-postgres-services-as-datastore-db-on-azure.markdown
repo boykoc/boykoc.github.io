@@ -23,8 +23,7 @@ on the docs and adapt the CKAN commands accordinly when setting things up
 or running some updates.
 
 The connection string is also pretty straightforward for the most part.
-Azure has some decent [docs on how to get the inforamation and the format]
-(https://docs.microsoft.com/en-ca/azure/postgresql/quickstart-create-server-database-portal#get-the-connection-information).
+Azure has some decent [docs on how to get the inforamation and the format](https://docs.microsoft.com/en-ca/azure/postgresql/quickstart-create-server-database-portal#get-the-connection-information).
 
 However, this did cause an issue when setting up the Datastore.
 
@@ -34,7 +33,9 @@ place. But, to check the read permissions it tries to get the datastore
 read connection string username.
 
 https://github.com/ckan/ckan/blob/b5aeb795e0b1624238df1190e24ec6b1228b67d6/ckanext/datastore/backend/postgres.py#L1594
-`        read_connection_user = sa_url.make_url(self.read_url).username`
+{% highlight python %}
+        read_connection_user = sa_url.make_url(self.read_url).username
+{% endhighlight %}
 
 To do this it's using `import sqlalchemy.engine.url as sa_url` which is
 sqlalchemy's good attempt at extract the database connection information.
@@ -76,14 +77,14 @@ But it's an sqlalchemy problem because it's code assumes simple username
 formats. *But, it's a my problem because I'm using Azure DB for postgreSQL
 service*.
 
-# Solutions
+## Solutions
 
-## Flag for CKAN and hope it gets addressed in source code there
+### Flag for CKAN and hope it gets addressed in source code there
 
 Possibly don't use sqlalchemy's functions to get the db username or implement
 something similar to below?
 
-## Flag for sqlalchemy
+### Flag for sqlalchemy
 
 {% highlight python %}
 import re
@@ -117,7 +118,7 @@ only accounting for my specific setup.
 
 {% endhighlight %}
 
-## Modify CKAN core on my instance
+### Modify CKAN core on my instance
 
 This is what I'm currently doing with the following:
 
