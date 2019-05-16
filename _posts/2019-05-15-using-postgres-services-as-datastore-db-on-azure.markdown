@@ -25,14 +25,14 @@ or running some updates.
 The connection string is also pretty straightforward for the most part.
 Azure has some decent [docs on how to get the inforamation and the format](https://docs.microsoft.com/en-ca/azure/postgresql/quickstart-create-server-database-portal#get-the-connection-information).
 
-However, this did cause an issue when setting up the Datastore.
+**However, this did cause an issue when setting up the Datastore.**
 
 CKAN will run some checks on the datastore connections and permissions
 which is kind of re-assuring to know there is some level of checks in
 place. But, to check the read permissions it tries to get the datastore
 read connection string username.
 
-https://github.com/ckan/ckan/blob/b5aeb795e0b1624238df1190e24ec6b1228b67d6/ckanext/datastore/backend/postgres.py#L1594
+[L1594](https://github.com/ckan/ckan/blob/b5aeb795e0b1624238df1190e24ec6b1228b67d6/ckanext/datastore/backend/postgres.py#L1594)
 {% highlight python %}
         read_connection_user = sa_url.make_url(self.read_url).username
 {% endhighlight %}
@@ -74,8 +74,8 @@ postgres offering requires.
 
 So, this is a CKAN issue because it's limiting users potential setups.
 But it's an sqlalchemy problem because it's code assumes simple username
-formats. *But, it's a my problem because I'm using Azure DB for postgreSQL
-service*.
+formats. **But, it's a my problem because I'm using Azure DB for postgreSQL
+service**.
 
 ## Solutions
 
