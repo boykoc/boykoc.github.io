@@ -131,3 +131,9 @@ This is what I'm currently doing with the following:
         # If connection user comes back with a "@host" split and get just username.
         read_connection_user = read_connection_user.split('@')[0]
 {% endhighlight %}        
+
+
+## Update
+
+I found this [stackoverflow issue](https://stackoverflow.com/a/49773699/3366016) after working this out. For what ever reason I didn't 
+really google this issue first, just started digging into the code bases.
