@@ -33,4 +33,6 @@ alter table activity
       
 {% endhighlight %}
 
+**Right click, open image in new tab to zoom in.**
+
 <img alt="ckan 2.8.3 DDL physical diagram" src="/assets/img/ckan-2.8.3-ddl-diagram-2019-10-21.png" />
