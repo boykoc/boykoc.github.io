@@ -42,6 +42,25 @@ alter table activity
 {% assign tables = site.data.ckan-2-8-2-data-model.Tables %}
 {% for table in tables %}
 
-   <p>{{ table }}</p>
+   ### {{ table["Metadata"]["Name"] }}
+   {{ table["Metadata"]["Description"] }}
+
+   <table>
+     <thead>
+       <tr>
+         <th>Field</th>
+         <th>Description</th>
+       </tr>
+     </thead>
+     <tbody>
+       {% assign columns = tables["Columns"] %}
+       {% for column in columns %}
+         <tr>
+           <td>{{ column[0] }}</td>
+           <td>{{ column[1] }}</td>
+         </tr>
+       {% endfor %}
+     </tbody>
+   </table>
 
 {% endfor %}
