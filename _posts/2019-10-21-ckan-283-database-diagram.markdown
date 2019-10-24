@@ -42,6 +42,6 @@ alter table activity
 {% assign tables = site.data.ckan-2-8-2-data-model.Tables %}
 {% for table in tables %}
 
-   {{ table }}
+   <p>{{ table }}</p>
 
 {% endfor %}
