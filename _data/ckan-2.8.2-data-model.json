@@ -1,0 +1,614 @@
+{
+  "Tables": [
+    {
+      "Metadata": {
+        "Name": "activity",
+        "Description": "User activities in CKAN related to an object. Used to create an activity stream for users, packages, groups and organizations."
+      },
+      "Columns":{
+        "ID": "Record ID. Application generated e.g. uuid.uuid4().",
+        "timestamp": "Timestamp of when record was created. Database generated.",
+        "USER_ID": "The name or id of the user who carried out the activity, e.g. 'seanh'.",
+        "OBJECT_ID": "The name or id of the object of the activity, e.g. 'my_dataset'",
+        "REVISION_ID": "The id of the revision the activity is tied to.",
+        "ACTIVITY_TYPE": "The type of the activity, this must be an activity type that CKAN knows how to render, e.g. 'new package', 'changed user', 'deleted group' etc.",
+        "DATA": "Any additional data about the activity (this is a python dictionary)"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "activity_detail",
+        "Description": "Additional details for an activity."
+      },
+      "Columns":{
+        "ID": "Record ID. Application generated e.g. uuid.uuid4().",
+        "ACTIVITY_ID": "The id of the parent activity.",
+        "OBJECT_ID": "The name or id of the object of the activity_detail.",
+        "OBJECT_TYPE": "The object type of the object of the acitivity_detail",
+        "ACTIVITY_TYPE": "The type of the activity, this must be an activity type that CKAN knows how to render, e.g. 'new package', 'changed user', 'deleted group' etc.",
+        "DATA": "any additional data about the activity_detail (This is a python dictionary)"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "authorization_group",
+        "Description": "Deprecated Table. Authorization groups / roles in system that are available to users. https://github.com/ckan/ckan/commit/55e9c01479295ff413e10456b128c4c631261755"
+      },
+      "Columns":{
+        "ID":  "The ID.",
+        "NAME":  "Name of authorization group / role.",
+        "CREATED": "Timestamp group / role created."
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "authorization_group_user",
+        "Description": "Deprecated Table. Join table connecting user to authorization group. https://github.com/ckan/ckan/commit/55e9c01479295ff413e10456b128c4c631261755"
+      },
+      "Columns":{
+        "AUTHORIZATION_GROUP_ID": "Id of authorization group assigned to user.",
+        "USER_ID": "The name or id of the user",
+        "ID": "The ID"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "dashboard",
+        "Description": "Dates a user was last notified of activity information. Used by user dashboard and email notifications. Used by dashboard_activity_list action and is similar to *_activity_list actions but includes an is_new flag for activities. "
+      },
+      "Columns":{
+        "USER_ID": "The name or id of the user",
+        "ACTIVITY_STREAM_LAST_VIEWED": "Timestamp of last time activity stream was viewed by user.",
+        "EMAIL_LAST_SENT": "Timestamp of last time an activity notification email was sent to a user."
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "group",
+        "Description": "Represents simple way to manage collections of packages by topic."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "NAME":  "Name of group",
+        "TITLE": "Title of group",
+        "DESCRIPTION": "Description of the group",
+        "CREATED": "Date time group was created",
+        "STATE": "State of the group (e.g. active, inactive)",
+        "REVISION_ID": "ID for associated revision",
+        "TYPE":  "Type of group (e.g. organization)",
+        "APPROVAL_STATUS": "Status of approval (e.g. approved, draft)",
+        "IMAGE_URL": "URL for related image for group",
+        "IS_ORGANIZATION": "Boolean value to indicate if group is organization type"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "group_extra",
+        "Description": "Represents additional group details/metadata"
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "GROUP_ID":  "Associated group ID",
+        "KEY": "Key of additional values (acts as column field)",
+        "VALUE": "Value associated to key",
+        "STATE": "State of key",
+        "REVISION_ID": "Associated revision ID"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "group_extra_revision",
+        "Description": "Changes to group_extra records."
+      },
+      "Columns":{
+        "ID":  "The ID.",
+        "GROUP_ID":  "The id of the parent group.",
+        "KEY": "Key of additional values (acts as column field)",
+        "VALUE": "Value associated to key",
+        "STATE": "State of key",
+        "REVISION_ID": "Associated revision ID",
+        "CONTINUITY_ID": "FK to base table. Based table columns are exactly duplicated. This ties base table to revision table.",
+        "EXPIRED_ID":  "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "REVISION_TIMESTAMP":  "Timestamp of when revision record created.",
+        "EXPIRED_TIMESTAMP": "Timestamp of when revision record expired (no longer current).",
+        "CURRENT": "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "group_revision",
+        "Description": "Changes to group records."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "NAME":  "Name of group",
+        "TITLE": "Title of group",
+        "DESCRIPTION": "Description of the group",
+        "CREATED": "Date time group was created",
+        "STATE": "State of the group (e.g. active, inactive)",
+        "REVISION_ID": "ID for associated revision",
+        "CONTINUITY_ID": "FK to base table. Based table columns are exactly duplicated. This ties base table to revision table.",
+        "EXPIRED_ID":  "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "REVISION_TIMESTAMP":  "Timestamp of when revision record created.",
+        "EXPIRED_TIMESTAMP": "Timestamp of when revision record expired (no longer current).",
+        "CURRENT": "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "TYPE":  "Type of group (e.g. organization)",
+        "APPROVAL_STATUS": "Status of approval (e.g. approved, draft)",
+        "IMAGE_URL": "URL for related image for group",
+        "IS_ORGANIZATION": "Boolean value to indicate if group is organization type"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "member",
+        "Description": "Record membership of object (e.g. a user, dataset or group) to a group."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "TABLE_ID":  "The id of the object to be added to a group.",
+        "GROUP_ID":  "The id or name of the group to add the object to",
+        "STATE": "Current membership of object to group state (e.g. ‘active’, ‘inactive’)",
+        "REVISION_ID": "ID for associated revision",
+        "TABLE_NAME":  "The type of the object being added, e.g. 'package' or 'user'",
+        "CAPACITY":  "The capacity of the membership"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "member_revision",
+        "Description": "Changes to member records"
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "TABLE_ID":  "The id of the object to be added to a group.",
+        "GROUP_ID":  "The id or name of the group to add the object to",
+        "STATE": "Current membership of object to group state (e.g. ‘active’, ‘inactive’)",
+        "REVISION_ID": "ID for associated revision",
+        "CONTINUITY_ID": "FK to base table. Based table columns are exactly duplicated. This ties base table to revision table.",
+        "EXPIRED_ID":  "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "REVISION_TIMESTAMP":  "Timestamp of when revision record created.",
+        "EXPIRED_TIMESTAMP": "Timestamp of when revision record expired (no longer current).",
+        "CURRENT": "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "TABLE_NAME":  "The type of the object being added, e.g. 'package' or 'user'",
+        "CAPACITY":  "The capacity of the membership"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "migrate_version",
+        "Description": "Used by sqlalchemy to track new database migrations from codebase. Tracks the schema versions."
+      },
+      "Columns":{
+        "REPOSITORY_ID": "Used to identify which repository this database is versioned under. You can use the name of your project. (e.g. ‘CKAN’)",
+        "REPOSITORY_PATH": "Path to migration files. (e.g. ‘ckan/migration’)",
+        "VERSION": "Schema version ID (e.g. 087, 088). Tracks version of current database against migrations to determine pending migrations, rollbacks, etc."
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "package",
+        "Description": "Represents the dataset and related metadata."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "NAME":  "The unique name that is used in urls and for identification ",
+        "TITLE": "The title of the dataset (optional, default: same as name)",
+        "VERSION": "Version of package",
+        "URL": "Home page for this dataset",
+        "NOTES": "Description and other information about the dataset",
+        "LICENSE_ID":  "passed from WP). The license under which the dataset is made available",
+        "REVISION_ID": "ID of associated revision",
+        "AUTHOR":  "Author of dataset",
+        "AUTHOR_EMAIL":  "Author email",
+        "MAINTAINER":  "Maintainer of dataset",
+        "MAINTAINER_EMAIL":  "Maintainer email",
+        "STATE": "The current state of the dataset, e.g. 'active' or 'deleted', only active datasets show up in search results and other lists of datasets, this parameter will be ignored if you are not authorized to change the state of the dataset (optional, default: 'active')",
+        "TYPE":  "The type of the dataset (optional), IDatasetForm plugins associate themselves with different dataset types and provide custom dataset handling behaviour for these types",
+        "OWNER_ORG": "Associated organization to group dataset under",
+        "PRIVATE": "If True creates a private dataset",
+        "METADATA_MODIFIED": "Date time last updated",
+        "CREATOR_USER_ID": "Creating user ID",
+        "METADATA_CREATED":  "Date time dataset was created"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "package_extra",
+        "Description": "Represents additional group details/metadata. Represents additional metadata for datasets (arbitrary, unlimited additional key/value fields)."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "PACKAGE_ID":  "Associated package ID",
+        "KEY": "Key of additional values (acts as column field)",
+        "VALUE": "Value associated to key",
+        "REVISION_ID": "Associated revision ID",
+        "STATE": "State of key"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "package_extra_revision",
+        "Description": "Changes to package_extra records"
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "PACKAGE_ID":  "Associated package ID",
+        "KEY": "Key of additional values (acts as column field)",
+        "VALUE": "Value associated to key",
+        "REVISION_ID": "Associated revision ID",
+        "CONTINUITY_ID": "FK to base table. Based table columns are exactly duplicated. This ties base table to revision table.",
+        "STATE": "State of key",
+        "EXPIRED_ID":  "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "REVISION_TIMESTAMP":  "Timestamp of when revision record created.",
+        "EXPIRED_TIMESTAMP": "Timestamp of when revision record expired (no longer current).",
+        "CURRENT": "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "package_relationship",
+        "Description": "Represents how a dataset is related to other objects (i.e. package A depends on package B)"
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "SUBJECT_PACKAGE_ID":  "The first package (i.e. parent)",
+        "OBJECT_PACKAGE_ID": "The second package (i.e. child0)",
+        "TYPE":  "Type of relationship (e.g. depends_on, dependency_of, child_of, etc)",
+        "COMMENT": "Additional comments about relationship",
+        "REVISION_ID": "Associated revision ID",
+        "STATE": "State of relationship"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "package_relationship_revision",
+        "Description": "Changes to package_relationship records"
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "SUBJECT_PACKAGE_ID":  "The first package (i.e. parent)",
+        "OBJECT_PACKAGE_ID": "The second package (i.e. child0",
+        "TYPE":  "Type of relationship (e.g. depends_on, dependency_of, child_of, etc)",
+        "COMMENT": "Additional comments about relationship",
+        "REVISION_ID": "Associated revision ID",
+        "CONTINUITY_ID": "FK to base table. Based table columns are exactly duplicated. This ties base table to revision table.",
+        "STATE": "State of relationship",
+        "EXPIRED_ID":  "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "REVISION_TIMESTAMP":  "Timestamp of when revision record created.",
+        "EXPIRED_TIMESTAMP": "Timestamp of when revision record expired (no longer current).",
+        "CURRENT": "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "package_revision",
+        "Description": "Changes to package records"
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "NAME":  "The unique name that is used in urls and for identification ",
+        "TITLE": "The title of the dataset (optional, default: same as name)",
+        "VERSION": "Version of package",
+        "URL": "Home page for this dataset",
+        "NOTES": "Description and other information about the dataset",
+        "LICENSE_ID":  "(passed from WP). The license under which the dataset is made available",
+        "REVISION_ID": "ID of associated revision",
+        "CONTINUITY_ID": "FK to base table. Based table columns are exactly duplicated. This ties base table to revision table.",
+        "AUTHOR":  "Author of dataset",
+        "AUTHOR_EMAIL":  "Author email",
+        "MAINTAINER":  "Maintainer of dataset",
+        "MAINTAINER_EMAIL":  "Maintainer email",
+        "STATE": "The current state of the dataset, e.g. 'active' or 'deleted', only active datasets show up in search results and other lists of datasets, this parameter will be ignored if you are not authorized to change the state of the dataset (optional, default: 'active')",
+        "EXPIRED_ID":  "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "REVISION_TIMESTAMP":  "Timestamp of when revision record created.",
+        "EXPIRED_TIMESTAMP": "Timestamp of when revision record expired (no longer current).",
+        "CURRENT": "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "TYPE":  "The type of the dataset (optional), IDatasetForm plugins associate themselves with different dataset types and provide custom dataset handling behaviour for these types",
+        "OWNER_ORG": "Associated organization to group dataset under",
+        "PRIVATE": "If True creates a private dataset",
+        "METADATA_MODIFIED": "Date time last updated",
+        "CREATOR_USER_ID": "Creating user ID",
+        "METADATA_CREATED":  "Date time dataset was created"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "package_tag",
+        "Description": "Represents the tags for packages which are used to group/classify datasets, associates tags to packages."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "PACKAGE_ID":  "Associated package ID",
+        "TAG_ID":  "Associated tag ID",
+        "REVISION_ID": "Associated revision ID",
+        "STATE": "Sate of association"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "package_tag_revision",
+        "Description": "Changes to package_tag records"
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "PACKAGE_ID":  "Associated package ID",
+        "TAG_ID":  "Associated tag ID",
+        "REVISION_ID": "Associated revision ID",
+        "CONTINUITY_ID": "FK to base table. Based table columns are exactly duplicated. This ties base table to revision table.",
+        "STATE": "Sate of association",
+        "EXPIRED_ID":  "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "REVISION_TIMESTAMP":  "Timestamp of when revision record created.",
+        "EXPIRED_TIMESTAMP": "Timestamp of when revision record expired (no longer current).",
+        "CURRENT": "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "rating",
+        "Description": "User rating of a dataset (package)"
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "USER_ID": "The name or id of the user that created the rating",
+        "USER_IP_ADDRESS": "Creating user IP address",
+        "PACKAGE_ID":  "The name or id of the dataset to rate",
+        "RATING":  "The rating to give to the dataset, an integer between 1 and 5",
+        "CREATED": "Timestamp that rating record was created"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "resource",
+        "Description": "Represents the structure data files and technical documents related to a package (dataset). A Dataset in CKAN has many Resources. They consist of links to the data itself or sometimes link to information about the Dataset."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "URL": "The key attribute of a resource (and the only required attribute). The url points to the location online where the content of that resource can be found. For a file this would be the location online of that file (or more generally a url which yields the bitstream representing the contents of that file – for example some “files” are only generated on demand from a database). For an API this would be the endpoint for the api.",
+        "FORMAT":  "Human created format string with possible nesting e.g. zip:csv. See below for details of the format field.",
+        "DESCRIPTION": "A brief description (one sentence) of the Resource. Longer descriptions can go in notes field of the associated Data Package.",
+        "position":  "Position of resource used for ordering on the page",
+        "REVISION_ID": "Associated revision ID",
+        "HASH":  "Hash (md5 or sha-1 hash) of resource inserted by datastore cron job",
+        "STATE": "State of resource",
+        "EXTRAS":  "Additional resource information",
+        "NAME":  "A name for this resource (could be used in a ckan url)",
+        "RESOURCE_TYPE": "The type of the resource. One of: file | file.upload | api | visualization | code | documentation",
+        "MIMETYPE":  "Standard mimetype (e.g. for zipped csv would be application/zip)",
+        "MIMETYPE_INNER":  "Mimetype of innermost object (so for example would be text/csv)",
+        "SIZE":  "Size of the resource (content length). Usually only relevant for resources of type file.",
+        "LAST_MODIFIED": "Date time resource was last updated",
+        "CACHE_URL": "URL for cached resource",
+        "CACHE_LAST_UPDATED":  "Date time of cache last updated",
+        "WEBSTORE_URL":  "URL for webstore for resource",
+        "WEBSTORE_LAST_UPDATED": "Date time webstore url was last updated",
+        "CREATED": "Date time resource was created",
+        "URL_TYPE":  "Type of URL for resource",
+        "PACKAGE_ID":  "Associated package (dataset), all resources are assigned to a dataset"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "resource_revision",
+        "Description": "Changes to resource records"
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "URL": "The key attribute of a resource (and the only required attribute). The url points to the location online where the content of that resource can be found. For a file this would be the location online of that file (or more generally a url which yields the bitstream representing the contents of that file – for example some “files” are only generated on demand from a database). For an API this would be the endpoint for the api.",
+        "FORMAT":  "Human created format string with possible nesting e.g. zip:csv. See below for details of the format field.",
+        "DESCRIPTION": "A brief description (one sentence) of the Resource. Longer descriptions can go in notes field of the associated Data Package.",
+        "position":  "Position of resource used for ordering on the page",
+        "REVISION_ID": "Associated revision ID",
+        "CONTINUITY_ID": "FK to base table. Based table columns are exactly duplicated. This ties base table to revision table.",
+        "HASH":  "Hash (md5 or sha-1 hash) of resource inserted by datastorer cron job",
+        "STATE": "State of resource",
+        "EXTRAS":  "Additional resource information",
+        "EXPIRED_ID":  "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "REVISION_TIMESTAMP":  "Timestamp of when revision record created.",
+        "EXPIRED_TIMESTAMP": "Timestamp of when revision record expired (no longer current).",
+        "CURRENT": "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "NAME":  "A name for this resource (could be used in a ckan url)",
+        "RESOURCE_TYPE": "The type of the resource. One of: file, file.upload, api, visualization,  code, documentation",
+        "MIMETYPE":  "Standard mimetype (e.g. for zipped csv would be application/zip)",
+        "MIMETYPE_INNER":  "Mimetype of innermost object (so for example would be text/csv)",
+        "SIZE":  "Size of the resource (content length). Usually only relevant for resources of type file.",
+        "LAST_MODIFIED": "Date time resource was last updated",
+        "CACHE_URL": "URL for cached resource",
+        "CACHE_LAST_UPDATED":  "Date time of cache last updated",
+        "WEBSTORE_URL":  "URL for webstore for resource",
+        "WEBSTORE_LAST_UPDATED": "Date time webstore url was last updated",
+        "CREATED": "Date time resource was created",
+        "URL_TYPE":  "Type of URL for resource",
+        "PACKAGE_ID":  "Associated package (dataset), all resources are assigned to a dataset"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "resource_view",
+        "Description": "Resource view record for resources that can be displayed/previewed in the system (e.g. a CSV can have a data explorer resource view)."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "RESOURCE_ID": "Id of the associated (parent) resource",
+        "TITLE": "The title of the view",
+        "DESCRIPTION": "A description of the view (optional)",
+        "VIEW_TYPE": "Type of view",
+        "order": "Display order of resource view (used when multiple resource views are created for a resource)",
+        "CONFIG":  "Options necessary to recreate a view state (optional)"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "revision",
+        "Description": "General revision information used by all *_revision tables to track additional metadata about the revision."
+      },
+      "Columns":{
+        "ID":  "The Id",
+        "timestamp": "Date and time the revision is created",
+        "AUTHOR":  "Id or name of user that triggered revision (e.g. edited dataset)",
+        "MESSAGE": "Message about the revision (e.g. “REST API: Create member object”)",
+        "STATE": "State of the revision",
+        "APPROVED_TIMESTAMP":  "Date and time the revision is approved, if necessary"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "system_info",
+        "Description": "General system information settings. This can be configured in the *.ini configuration file or in the database as key / value pairs."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "KEY": "Key of additional values (acts as column field)",
+        "VALUE": "Value associated to key",
+        "REVISION_ID": "Associated revision ID",
+        "STATE": "State of configuration key/value pair"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "system_info_revision",
+        "Description": "Changes to system_info records"
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "KEY": "Key of additional values (acts as column field)",
+        "VALUE": "Value associated to key",
+        "REVISION_ID": "Associated revision ID",
+        "CONTINUITY_ID": "FK to base table. Based table columns are exactly duplicated. This ties base table to revision table.",
+        "STATE": "State of configuration key/value pair",
+        "EXPIRED_ID":  "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71",
+        "REVISION_TIMESTAMP":  "Timestamp of when revision record created.",
+        "EXPIRED_TIMESTAMP": "Timestamp of when revision record expired (no longer current).",
+        "CURRENT": "Deprecated. https://github.com/ckan/ckan/blob/ebe9d8390e52458bc388fbaf15a9ab7bee2ae2d7/ckan/model/core.py#L71"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "tag",
+        "Description": "Represents additional way to classify and group data by terms. Each tag either belongs to a vocabulary, or can be a free tag that doesn’t belong to any vocabulary (i.e. a normal CKAN tag)."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "NAME":  "Name of tag",
+        "VOCABULARY_ID": "Associated vocabulary the tag is part of (optional)"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "task_status",
+        "Description": "Polymorphic. Typically used by datapusher to track key/value pairs about resource task statuses. Could be used by any object that needs to track task status."
+      },
+      "Columns":{
+        "ID":  "The id of the task status",
+        "ENTITY_ID": "The id of the object the task status is being performed on  (e.g. resource.id, package.id)",
+        "ENTITY_TYPE": "The type of the object the task is being performed on (e.g. resource, package)",
+        "TASK_TYPE": "The type of task being performed of the task status",
+        "KEY": "The key descriptor of the task status",
+        "VALUE": "The value or actual data being stored as part of the task",
+        "STATE": "State of task (e.g. ‘active’, ‘complete’)",
+        "ERROR": "Information about any error that occurred during processing.",
+        "LAST_UPDATED":  "The time at which this entry was last updated. Defaults to the current time.",
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "term_translation",
+        "Description": "Used by the multilingual plugin to track term translations. e.g. term: "Welcome", term_translation: "Bienvenue", lang_code: "fr"."
+      },
+      "Columns":{
+        "TERM":  "The English term (key)",
+        "TERM_TRANSLATION":  "The translated version of the term",
+        "LANG_CODE": "The language code of the term_translation (e.g. ‘fr’)"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "tracking_raw",
+        "Description": "Used to do basic page view tracking for basic stats. user_key is not the user.id but generated based on request information."
+      },
+      "Columns":{
+        "USER_KEY":  "The generated key to identify the user. unique anonymized key for each user to prevent counting multiple clicks from the same user. Page view count limited to 1 page view per user per day.",
+        "URL": "URL being tracked / interreacted with (page url)",
+        "TRACKING_TYPE": "Type of page being clicked (e.g. ‘dataset’, ‘page’, etc",
+        "ACCESS_TIMESTAMP":  "Timestamp of when record was created / page accessed."
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "tracking_summary",
+        "Description": "Basic page view tracking summary for package and it’s resources."
+      },
+      "Columns":{
+        "URL": "URL being tracked / interreacted with (page url)",
+        "PACKAGE_ID":  "The ID of the package being tracked (if resource is being tracked this tracks it’s parent package).",
+        "TRACKING_TYPE": "Type of page being clicked (e.g. ‘dataset’, ‘page’, etc",
+        "COUNT": "Overall count of views used to calculate running_total and recent_views",
+        "RUNNING_TOTAL": "Running total of views based on tracking_date",
+        "RECENT_VIEWS":  "Number of views in the last 14 days",
+        "TRACKING_DATE": "Start date of tracking. Defaults to 2011-01-01."
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "user",
+        "Description": "Represents a list of users in the system."
+      },
+      "Columns":{
+        "ID":  "The ID",
+        "NAME":  "The name of the user, a string between 2 and 100 characters in length, containing only lowercase alphanumeric characters, - and _",
+        "APIKEY":  "Users/system generated API key to interact with the system via the API",
+        "CREATED": "Date and time user was created",
+        "ABOUT": "A description of the new user (optional)",
+        "PASSWORD":  "The password of the new user, a string of at least 4 characters",
+        "FULLNAME":  "The full name of the new user (optional)",
+        "EMAIL": "The email address for the new user",
+        "RESET_KEY": "Resent key used when user is changing password",
+        "SYSADMIN":  "Indicates if user is a system administrator",
+        "ACTIVITY_STREAMS_EMAIL_NOTIFICATIONS":  "Indicates if user should get notifications about activity in system",
+        "STATE": "State of user"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "user_following_dataset",
+        "Description": "Represents the datasets a user if following. Modifies their notifications and activity streams."
+      },
+      "Columns":{
+        "FOLLOWER_ID": "User id",
+        "OBJECT_ID": "Object id (e.g. dataset id)",
+        "DATETIME":  "Timestamp of when use started following dataset"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "user_following_group",
+        "Description": "Represents the groups a user if following. Modifies their notifications and activity streams."
+      },
+      "Columns":{
+        "FOLLOWER_ID": "User id",
+        "OBJECT_ID": "Object id (e.g. group id)",
+        "DATETIME":  "Timestamp of when use started following dataset"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "user_following_user",
+        "Description": "Represents the users a user if following. Modifies their notifications and activity streams."
+      },
+      "Columns":{
+        "FOLLOWER_ID": "User id",
+        "OBJECT_ID": "Object id (e.g. user id)",
+        "DATETIME":  "Timestamp of when use started following dataset"
+      }
+    },
+    {
+      "Metadata": {
+        "Name": "vocabulary",
+        "Description": "Tag vocabulary are a way of grouping related tags together into custom fields. Enables restrictions such as that each dataset must have a genre and a composer, and that no dataset can have two genres or two composers, etc."
+      },
+      "Columns":{
+        "ID":  "The id of the vocabulary",
+        "NAME":  "The name of the new vocabulary, e.g. 'Genre'"
+      }
+    }
+  ]
+}
