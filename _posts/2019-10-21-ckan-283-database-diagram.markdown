@@ -42,18 +42,6 @@ alter table activity
 {% assign tables = site.data.ckan-2-8-2-data-model.Tables %}
 {% for table in tables %}
 
-   {{ table.Metadata.Name }}
-   
-   <table>
-     <thead>
-       <tr>
-         <th>Field</th>
-         <th>Description</th>
-       </tr>
-     </thead>
-     <tbody>
-       
-     </tbody>
-   </table>
+   {{ table }}
 
 {% endfor %}
