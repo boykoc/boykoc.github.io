@@ -39,7 +39,9 @@ alter table activity
 
 ## Physical Data Model
 
-{% assign tables = site.data.ckan-2-8-2-data-model.Tables %}
+{% assign tables = site.data.ckan-2-8-2-data-model["Tables"] %}
+
+{{ tables }}
 {% for table in tables %}
 
    ### {{ table["Metadata"]["Name"] }}
