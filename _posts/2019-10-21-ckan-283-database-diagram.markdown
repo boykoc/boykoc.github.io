@@ -53,9 +53,8 @@ alter table activity
        </tr>
      </thead>
      <tbody>
-       {% assign columns = tables["Columns"] %}
-        {{ columns }}
-       {% for column in columns %}
+        {{ table["Columns"] }}
+       {% for column in table["Columns"] %}
          <tr>
            <td>{{ column[0] }}</td>
            <td>{{ column[1] }}</td>
