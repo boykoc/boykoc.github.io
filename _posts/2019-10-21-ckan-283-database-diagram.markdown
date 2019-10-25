@@ -53,10 +53,9 @@ alter table activity
        </tr>
      </thead>
      <tbody>
-        {{ table["Columns"] }}
        {% for column in table["Columns"] %}
          <tr>
-           <td>{{ column[0] }}</td>
+           <td>{{ column[0] | downcase }}</td>
            <td>{{ column[1] }}</td>
          </tr>
        {% endfor %}
