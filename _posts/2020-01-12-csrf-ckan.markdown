@@ -21,6 +21,8 @@ There are:
 2. Edits needed to your `plugin.py`
 3. Ensure `streaming=False` is set
 
+Here's a [PR that has it implemented](https://github.com/boykoc/ckanext-ontario_theme/pull/112).
+
 ### 3 Files to add
 
 Add these 3 files (orig_anti_csrf.py, anti_csrf.py, and anti_csrf3.py) to your extension (e.g. `ckanext-extension_name/ckanext/extension_name/[new_files.py]`)
@@ -34,12 +36,12 @@ Add these 3 files (orig_anti_csrf.py, anti_csrf.py, and anti_csrf3.py) to your e
 {% highlight python %}
 import anti_csrf3
 import orig_anti_csrf
-{% endhighlight %}
 
+...
 
-{% highlight python %}
 class OntarioThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IBlueprint)
+    
     ...
     
     def __init__(self, **kwargs):
@@ -81,4 +83,4 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
 
 ### Set `streaming=False`
 
-CKAN 2.8.3 has this set, but if you're older than that, you'll need to set `streaming=False` in `ckan/config/middleware/pylons_app.py` (see [PR #4657(https://github.com/ckan/ckan/pull/4657)).
+CKAN 2.8.3 has this set, but if you're older than that, you'll need to set `streaming=False` in `ckan/config/middleware/pylons_app.py` (see [PR #4657](https://github.com/ckan/ckan/pull/4657)).
