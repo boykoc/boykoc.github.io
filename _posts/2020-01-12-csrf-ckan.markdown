@@ -1,0 +1,84 @@
+---
+layout: post
+title:  "CSRF CKAN"
+date:   2020-01-10 15:00:00 -0400
+categories: CKAN
+---
+
+## Overview
+
+This is just what I did with the help from the amazing examples at [ckanext-security](https://github.com/data-govt-nz/ckanext-security) and [ckan-ex-qgov](https://github.com/qld-gov-au/ckan-ex-qgov).
+
+Hopefully this will help explain how to set this up for others.
+
+**This hasn't been cleaned up (e.g. files could be in a directory, better naming, removing unused/commented code, etc.)**
+
+## Setup
+
+There are:
+
+1. 3 files to add to your extension
+2. Edits needed to your `plugin.py`
+3. Ensure `streaming=False` is set
+
+### 3 Files to add
+
+Add these 3 files (orig_anti_csrf.py, anti_csrf.py, and anti_csrf3.py) to your extension (e.g. `ckanext-extension_name/ckanext/extension_name/[new_files.py]`)
+
+1. [orig_anti_csrf.py](https://github.com/boykoc/ckanext-ontario_theme/blob/9272e73e9548f1ce67440811cc22438fb588dbbb/ckanext/ontario_theme/orig_anti_csrf.py) - which was based on [qgoc anti_csrf.py](https://github.com/qld-gov-au/ckan-ex-qgov/blob/master/ckanext/qgov/common/anti_csrf.py)
+2. [anti_csrf.py](https://github.com/boykoc/ckanext-ontario_theme/blob/9272e73e9548f1ce67440811cc22438fb588dbbb/ckanext/ontario_theme/anti_csrf.py) - which was based on [security anti_csrf.py](https://github.com/data-govt-nz/ckanext-security/blob/master/ckanext/security/anti_csrf.py)
+3. [anti_csrf3.py](https://github.com/boykoc/ckanext-ontario_theme/blob/9272e73e9548f1ce67440811cc22438fb588dbbb/ckanext/ontario_theme/anti_csrf3.py) - which was based on [security middleware.py](https://github.com/data-govt-nz/ckanext-security/blob/master/ckanext/security/middleware.py)
+
+## Edits to your plugin.py
+
+{% highlight python %}
+import anti_csrf3
+import orig_anti_csrf
+{% endhighlight %}
+
+
+{% highlight python %}
+class OntarioThemePlugin(plugins.SingletonPlugin):
+    plugins.implements(plugins.IBlueprint)
+    ...
+    
+    def __init__(self, **kwargs):
+        '''Setup pylons CSRF.
+        '''
+        orig_anti_csrf.intercept_csrf()
+    
+
+
+    # IBlueprint
+    
+    def get_blueprint(self):
+        '''Return a Flask Blueprint object to be registered by the app.
+        Setup Flask CSRF.
+        '''
+
+        blueprint = Blueprint(self.name, self.__module__)
+
+
+        @blueprint.before_app_request
+        def before_app_request():
+            '''Abort invalid Flask requests based on CSRF token.
+            '''
+            print(request)
+            if not anti_csrf3.is_valid():
+                log.debug("Invalid CSRF attempt.")
+                extra_vars = {'code': [403], 'content': 'Your form submission could not be validated.'}
+                return base.render('error_document_template.html', extra_vars=extra_vars)
+
+
+        @blueprint.after_app_request
+        def after_app_request(response):
+            '''Update every Flask response with CSRF token.
+            '''
+            anti_csrf3.after_request_function(response)
+            return response
+{% endhighlight %}
+
+
+### Set `streaming=False`
+
+CKAN 2.8.3 has this set, but if you're older than that, you'll need to set `streaming=False` in `ckan/config/middleware/pylons_app.py` (see [PR #4657(https://github.com/ckan/ckan/pull/4657)).
