@@ -41,7 +41,7 @@ import orig_anti_csrf
 
 ...
 
-class OntarioThemePlugin(plugins.SingletonPlugin):
+class ExtensionNamePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IBlueprint)
     
     ...
