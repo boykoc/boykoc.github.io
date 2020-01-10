@@ -34,6 +34,8 @@ Add these 3 files (orig_anti_csrf.py, anti_csrf.py, and anti_csrf3.py) to your e
 ## Edits to your plugin.py
 
 {% highlight python %}
+
+# CSRF IMPORTS
 import anti_csrf3
 import orig_anti_csrf
 
@@ -44,6 +46,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
     
     ...
     
+    # CSRF FOR PYLONS
     def __init__(self, **kwargs):
         '''Setup pylons CSRF.
         '''
@@ -53,6 +56,7 @@ class OntarioThemePlugin(plugins.SingletonPlugin):
 
     # IBlueprint
     
+    # CSRF FOR FLASK
     def get_blueprint(self):
         '''Return a Flask Blueprint object to be registered by the app.
         Setup Flask CSRF.
