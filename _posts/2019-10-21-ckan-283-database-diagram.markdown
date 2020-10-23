@@ -42,7 +42,7 @@ alter table activity
 {% assign tables = site.data.ckan-2-8-2-data-model.Tables %}
 {% for table in tables %}
 
-   <h3>{{ table["Metadata"]["Name"] }}</h3>
+   <h3 id='{{ table["Metadata"]["Name"] }}'>{{ table["Metadata"]["Name"] }}</h3>
    <p>{{ table["Metadata"]["Description"] }}</p>
 
    <table>
