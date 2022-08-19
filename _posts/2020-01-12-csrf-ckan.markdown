@@ -7,6 +7,8 @@ categories: CKAN
 
 ## Overview
 
+> **UPDATE! I'm not working with CKAN as much anymore but, to my understanding, this has been addressed in CKAN now. Check the [PR for details](https://github.com/ckan/ckan/pull/6863). You may also want to checkout [Queensland Government's standalone plugin](https://github.com/qld-gov-au/ckanext-csrf-filter) (because they are awesome I most of the below was based on them, and it support older versions which based on this CKAN ticket seems isn't supported yet).**
+
 This is just what I did with the help from the amazing examples at [ckanext-security](https://github.com/data-govt-nz/ckanext-security) and [ckan-ex-qgov](https://github.com/qld-gov-au/ckan-ex-qgov).
 
 Hopefully this will help explain how to set this up for others.
